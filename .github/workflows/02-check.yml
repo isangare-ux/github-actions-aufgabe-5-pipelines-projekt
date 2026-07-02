@@ -1,0 +1,27 @@
+name: 02 Dateien prüfen
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    push:
+      branches:
+        - main
+
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Dateien prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*sh
+
+      - name: Info 02_check_files.sh-Skripte starten
+        run: bash scripts/02_check_files.sh

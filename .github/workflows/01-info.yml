@@ -24,7 +24,7 @@ jobs:
       - name: Skripte ausführbar machen
         run: chmod +x scripts/*.sh
 
-      - name: Info Skript starten
+      - name: Info 01_info.sh-Skript starten
         run: bash scripts/01_info.sh
 
       
