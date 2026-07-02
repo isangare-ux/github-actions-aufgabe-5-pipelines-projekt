@@ -1,0 +1,8 @@
+GitHub Actions Bash Report
+
+Anzahl der Namen: 10
+
+Dieser Report wurde automatisch durch ein Shell Skript erstellt.
+
+Erwartetes Ergebnis:
+Die Datei output/report.txt soll später als Artefakt in GitHub Actions hochgeladen werden.

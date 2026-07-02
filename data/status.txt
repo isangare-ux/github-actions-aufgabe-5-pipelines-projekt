@@ -1,0 +1,3 @@
+Projekt: GitHub Actions Bash Aufgabe
+Status: Unterrichtsübung
+Ziel: 5 Pipelines selbst erstellen

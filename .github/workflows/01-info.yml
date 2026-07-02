@@ -1,0 +1,32 @@
+name: 01 Info Pipeline
+
+
+on:
+  push:
+    branches:
+      - main
+  
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch: 
+
+jobs:
+  info:
+    name: Info Skript ausführen
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*.sh
+
+      - name: Info Skript starten
+        run: bash scripts/01-info.yml
+        
+      
+
+
