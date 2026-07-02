@@ -1,5 +1,4 @@
 name: 03-report-artifact
-
 on:
   workflow_dispatch: {}
   push:
@@ -14,7 +13,6 @@ on:
     paths:
       - "scripts/**"
 
-
 jobs:
   report-artifact:
     name: 03 Report-Artifact
@@ -23,9 +21,11 @@ jobs:
       - name: Repository herunterladen
         uses: actions/checkout@v4
 
+      - name: Ausgabe-Ordner erstellen
+        run: mkdir -p output
+
       - name: Skripte ausführbar machen
         run: chmod +x scripts/*sh
-
 
       - name: 03-report-artifact-Skripte starten
         run: bash scripts/03_count_names.sh
@@ -34,12 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: report-atifact
-          path: output/einfacher-report.txt
-
-
-
-
-
-
-
-  
+          path: output/anzahl.txt
