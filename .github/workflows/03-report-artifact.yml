@@ -1,0 +1,45 @@
+name: 03-report-artifact
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+
+
+jobs:
+  report-artifact:
+    name: 03 Report-Artifact
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*sh
+
+
+      - name: 03-report-artifact-Skripte starten
+        run: bash scripts/03_count_names.sh
+
+      - name: Atifact Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-atifact
+          path: output/einfacher-report.txt
+
+
+
+
+
+
+
+  
