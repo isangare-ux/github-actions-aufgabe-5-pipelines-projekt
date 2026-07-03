@@ -1,0 +1,80 @@
+name: 04-needs-demo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Dateien prüfen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*sh
+
+      - name: Info 02_check_files.sh-Skripte starten
+        run: bash scripts/02_check_files.sh
+
+  count:
+    name: anzahl
+    runs-on: ubuntu-latest
+    needs: check
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*sh
+
+      - name: 03-report-artifact-Skripte starten
+        run: bash scripts/03_count_names.sh
+
+      - name: Zählergebnis als Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: anzahl
+          path: output/anzahl.txt
+  
+  report:
+    name: Report erstellen
+    runs-on: ubuntu-latest
+    needs: count
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*.sh
+
+      - name: Zählergebnis herunterladen
+        uses: actions/download-artifact@v4
+        with:
+          name: anzahl
+          path: output
+
+      - name: Report erstellen
+        run: bash scripts/04_create_report.sh
+
+  package:
+    name: Projekt-Paket
+    runs-on: ubuntu-latest
+    needs: report
+    steps:
+      - name: Repository herunterladen
+        uses: actions/checkout@v4
+
+      - name: Skripte ausführbar machen
+        run: chmod +x scripts/*.sh
+
+      - name: Package Erstellung
+        run: bash scripts/05_package.sh
